@@ -78,8 +78,8 @@ static const int shift_lanes_param[27] = {19, 13, 21, 10, 24, 15, 2, 9, 3,
 void PrintTroikaSlice(Trit *state, int slice)
 {
 	fprintf(stderr, "#### Slice %i ####\n", slice);
-	for(int row = 0; row < ROWS; ++row) {
-		for(int column = 0; column < COLUMNS; ++column) {
+	for (int row = 0; row < ROWS; ++row) {
+		for (int column = 0; column < COLUMNS; ++column) {
 			fprintf(stderr, "%i ", state[slice*SLICES + row*COLUMNS + column]);
 		}
 		fprintf(stderr, "\n");
@@ -95,7 +95,7 @@ void PrintTroikaState(Trit *state)
 {
     //fprintf(stderr, "Troika State:\n");
 
-    for(int slice = 0; slice < SLICES; ++slice) {
+    for (int slice = 0; slice < SLICES; ++slice) {
 		PrintTroikaSlice(state, slice);
     }
 }
@@ -104,7 +104,7 @@ void SubTrytes(Trit *state)
 {
     int sbox_idx;
 
-    for(sbox_idx = 0; sbox_idx < NUM_SBOXES; ++sbox_idx) {
+    for (sbox_idx = 0; sbox_idx < NUM_SBOXES; ++sbox_idx) {
         Tryte sbox_input = 9*state[3*sbox_idx] + 3*state[3*sbox_idx + 1] +
                          state[3*sbox_idx + 2];
         Tryte sbox_output = sbox_lookup[sbox_input];
@@ -122,9 +122,9 @@ void ShiftRows(Trit *state)
 
     Trit new_state[STATESIZE];
 
-    for(slice = 0; slice < SLICES; ++slice) {
-        for(row = 0; row < ROWS; ++row) {
-            for(col = 0; col < COLUMNS; ++col) {
+    for (slice = 0; slice < SLICES; ++slice) {
+        for (row = 0; row < ROWS; ++row) {
+            for (col = 0; col < COLUMNS; ++col) {
                 old_idx = SLICESIZE*slice + COLUMNS*row + col;
                 new_idx = SLICESIZE*slice + COLUMNS*row + 
                           (col + 3*shift_rows_param[row]) % COLUMNS;
@@ -142,9 +142,9 @@ void ShiftLanes(Trit *state)
 
     Trit new_state[STATESIZE];
 
-    for(slice = 0; slice < SLICES; ++slice) {
-        for(row = 0; row < ROWS; ++row) {
-            for(col = 0; col < COLUMNS; ++col) {
+    for (slice = 0; slice < SLICES; ++slice) {
+        for (row = 0; row < ROWS; ++row) {
+            for (col = 0; col < COLUMNS; ++col) {
                 old_idx = SLICESIZE*slice + COLUMNS*row + col;
                 new_slice = (slice + shift_lanes_param[col + COLUMNS*row]) % SLICES;
                 new_idx = SLICESIZE*(new_slice) + COLUMNS*row + col;
@@ -163,10 +163,10 @@ void AddColumnParity(Trit *state)
     Trit parity[SLICES * COLUMNS];
 
     // First compute parity for each column
-    for(slice = 0; slice < SLICES; ++slice) {
-        for(col = 0; col < COLUMNS; ++col) {
+    for (slice = 0; slice < SLICES; ++slice) {
+        for (col = 0; col < COLUMNS; ++col) {
             col_sum = 0;
-            for(row = 0; row < ROWS; ++row) {
+            for (row = 0; row < ROWS; ++row) {
                 col_sum += state[SLICESIZE*slice + COLUMNS*row + col];
             }
             parity[COLUMNS*slice + col] = col_sum % 3;
@@ -174,9 +174,9 @@ void AddColumnParity(Trit *state)
     }
 
     // Add parity 
-    for(slice = 0; slice < SLICES; ++slice) {
-        for(row = 0; row < ROWS; ++row) {
-            for(col = 0; col < COLUMNS; ++col) {
+    for (slice = 0; slice < SLICES; ++slice) {
+        for (row = 0; row < ROWS; ++row) {
+            for (col = 0; col < COLUMNS; ++col) {
                 idx = SLICESIZE*slice + COLUMNS*row + col;
                 sum_to_add = parity[(col - 1 + 9) % 9 + COLUMNS*slice] +
                              parity[(col + 1) % 9 + COLUMNS*((slice + 1) % SLICES)];
@@ -190,8 +190,8 @@ void AddRoundConstant(Trit *state, int round)
 {
     int slice, col, idx;
 
-    for(slice = 0; slice < SLICES; ++slice) {
-        for(col = 0; col < COLUMNS; ++col) {
+    for (slice = 0; slice < SLICES; ++slice) {
+        for (col = 0; col < COLUMNS; ++col) {
             idx = SLICESIZE*slice + col;
             state[idx] = (state[idx] + 
                           round_constants[round][slice*COLUMNS + col]) % 3;
@@ -208,7 +208,7 @@ void TroikaPermutation(Trit *state, unsigned long long num_rounds)
     assert(num_rounds <= NUM_ROUNDS);
 
     //PrintTroikaState(state);
-    for(round = 0; round < num_rounds; round++) {
+    for (round = 0; round < num_rounds; round++) {
         SubTrytes(state);
         ShiftRows(state);
         ShiftLanes(state);
@@ -224,9 +224,9 @@ static void TroikaAbsorb(Trit *state, unsigned int rate, const Trit *message,
 {
     unsigned long long trit_idx;
 
-    while(message_length >= rate) {
+    while (message_length >= rate) {
         // Copy message block over the state
-        for(trit_idx = 0; trit_idx < rate; ++trit_idx) {
+        for (trit_idx = 0; trit_idx < rate; ++trit_idx) {
             state[trit_idx] = message[trit_idx];
         }
         TroikaPermutation(state, num_rounds);
@@ -247,7 +247,7 @@ static void TroikaAbsorb(Trit *state, unsigned int rate, const Trit *message,
     last_block[trit_idx] = PADDING;
 
     // Insert last message block
-    for(trit_idx = 0; trit_idx < rate; ++trit_idx) {
+    for (trit_idx = 0; trit_idx < rate; ++trit_idx) {
         state[trit_idx] = last_block[trit_idx];
     }
 }
@@ -257,10 +257,10 @@ static void TroikaSqueeze(Trit *hash, unsigned long long hash_length,
                           unsigned long long num_rounds)
 {
     unsigned long long trit_idx;
-    while(hash_length >= rate) {
+    while (hash_length >= rate) {
         TroikaPermutation(state, num_rounds);
         // Extract rate output
-        for(trit_idx = 0; trit_idx < rate; ++trit_idx) {
+        for (trit_idx = 0; trit_idx < rate; ++trit_idx) {
             hash[trit_idx] = state[trit_idx];
         }
         hash += rate;
@@ -270,7 +270,7 @@ static void TroikaSqueeze(Trit *hash, unsigned long long hash_length,
     // Check if there is a last incomplete block
     if (hash_length % rate) {
         TroikaPermutation(state, num_rounds);
-        for(trit_idx = 0; trit_idx < hash_length; ++trit_idx) {
+        for (trit_idx = 0; trit_idx < hash_length; ++trit_idx) {
             hash[trit_idx] = state[trit_idx];
         }
     }
