@@ -135,7 +135,7 @@ void speedRepeated(int times){
     fTroika243repeated(fout, fin, times);
     long mt2 = getMicrotime();
     int ms = (int)(mt2-mt1)/1000;
-    printf("Troika243Repeated: %d ms per %d\n",ms,times);
+    printf("fTroika243Repeated: %d ms per %d\n",ms,times);
 }
 
 int main(int argc, const char * argv[]){
