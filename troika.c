@@ -218,7 +218,7 @@ void TroikaPermutation(Trit *state, unsigned long long num_rounds)
     //PrintTroikaState(state);
 }
 
-static void TroikaAbsorb(Trit *state, unsigned int rate, const Trit *message,
+void TroikaAbsorb(Trit *state, unsigned int rate, const Trit *message,
                          unsigned long long message_length,
                          unsigned long long num_rounds)
 {
@@ -252,7 +252,7 @@ static void TroikaAbsorb(Trit *state, unsigned int rate, const Trit *message,
     }
 }
 
-static void TroikaSqueeze(Trit *hash, unsigned long long hash_length,
+void TroikaSqueeze(Trit *hash, unsigned long long hash_length,
                           unsigned int rate, Trit *state,
                           unsigned long long num_rounds)
 {
