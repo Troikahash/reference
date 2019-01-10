@@ -15,7 +15,8 @@
 // trits are stored as two bits, one inside p, the other inside n, both have the same 'index'
 // names 'p' (positive) and 'n' (negative) result from using these functions in a lib for balanced ternary before
 // so i just left them here
-// but remember: troika trits and trytes aren't balanced or unbalanced, they have nothing to do with math
+// troika trits and trytes aren't balanced or unbalanced
+
 typedef struct {
     uint32_t p;
     uint32_t n;
