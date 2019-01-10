@@ -2,8 +2,8 @@
 //  ftroika.c
 //  troika-test
 //
-//  Created by he on 21.12.18.
-//  Copyright © 2018 he. All rights reserved.
+//  Created by c-mnd on 21.12.18.
+//  for license, see troika.c
 //
 #include <string.h>
 #include <stdio.h>
@@ -363,6 +363,9 @@ void fTroikaVarRounds(uint8_t *out, unsigned long long outlen,
     fTroikaSqueeze(out, outlen, TROIKA_RATE, state, num_rounds);
 }
 
+// one typical usage of Troika will be with 243 trits input and output
+// and rehashing of the last output
+// this function does it
 void fTroika243repeated(uint8_t *out, const uint8_t *in, int repeat){
     T27 state[SLICESIZE];
     fTroikaNullifyState(state);
