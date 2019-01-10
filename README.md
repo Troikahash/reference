@@ -3,9 +3,13 @@
 based on the original implementation, but with differently organized data.
 The functions do just the same, only on different structures. 
 Lanes are the basic trit vecors of type T27, containig 27 trits, see t27.h, which has the low level stuff.
+
 T27 state[27] is the troika state.
+
 state[0] is row 0, colum 0, with all slice0 ... slice26
+
 state[1] is row 0, colum 1, again the whole lane.
+
 For basic usage, look at the tests in main.c.
 Clone it, go to the folder with the .c files, run
 ```
