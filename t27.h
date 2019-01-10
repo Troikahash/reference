@@ -3,8 +3,8 @@
 //  troika-test
 //
 //  Created by he on 27.12.18.
-//  Copyright © 2018 he. All rights reserved.
-//
+//  Copyright © 2018 c-mnd. All rights reserved.
+//  License: dunno
 
 #ifndef t27_h
 #define t27_h
@@ -12,6 +12,10 @@
 #include <stdio.h>
 #include "general.h"
 
+// trits are stored as two bits, one inside p, the other inside n, both have the same 'index'
+// names 'p' (positive) and 'n' (negative) result from using these functions in a lib for balanced ternary before
+// so i just left them here
+// but remember: troika trits and trytes aren't balanced or unbalanced, they have nothing to do with math
 typedef struct {
     uint32_t p;
     uint32_t n;
