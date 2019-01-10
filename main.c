@@ -61,6 +61,7 @@ int testAbsorb(){
         memcpy(in, state, 729);
         memcpy(fin, in, 729);
     }
+    printf("test Absorb: %s\n",retval?"PASS":"FAIL");
     return retval;
 }
 int testPermutations(){
@@ -76,6 +77,7 @@ int testPermutations(){
             retval = 0;
         }
     }
+    printf("test Permutations: %s\n",retval?"PASS":"FAIL");
     return retval;
 }
 int testRepeated(int times){
@@ -94,6 +96,7 @@ int testRepeated(int times){
     if (memcmp(fout, out, 243 * sizeof(uint8_t))){
         retval = 0;
     }
+    printf("test Repeated: %s\n",retval?"PASS":"FAIL");
     return retval;
 }
 void speedTroika(int times){
