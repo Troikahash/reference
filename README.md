@@ -1,7 +1,7 @@
 # fTroika
 
 based on the original implementation, but with differently organized data.
-The functions do just the same, just on different structures. 
+The functions do just the same, only on different structures. 
 Lanes are the basic trit vecors of type T27, see t27.h which has the low level stuff.
 For basic usage, look at the tests in main.c.
 Clone it, go to the folder with the .c files, run
