@@ -65,6 +65,15 @@ void TroikaVarRounds(Trit *out, unsigned long long outlen,
 void PrintTroikaSlice(Trit *state, int slice);
 void PrintTroikaState(Trit *state);
 
+void TroikaAbsorb(Trit *state, unsigned int rate, const Trit *message,
+                         unsigned long long message_length,
+                         unsigned long long num_rounds);
+
+void TroikaSqueeze(Trit *hash, unsigned long long hash_length,
+                          unsigned int rate, Trit *state,
+                          unsigned long long num_rounds);
+
+
 void SubTrytes(Trit *state);
 void ShiftRows(Trit *state);
 void ShiftLanes(Trit *state);
