@@ -108,7 +108,7 @@ void speedTroika(int times){
     }
     long mt2 = getMicrotime();
     int ms = (int)(mt2-mt1)/1000;
-    printf("speedTroika: %d ms per %d\n",ms,times);
+    printf("original Troika: %d ms per %d\n",ms,times);
 }
 void speedFTroika(int times){
     long mt1 = getMicrotime();
