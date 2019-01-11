@@ -1,10 +1,6 @@
 //
-//  t27.h
-//  troika-test
-//
-//  Created by he on 27.12.18.
-//  Copyright © 2018 c-mnd. All rights reserved.
-//  License: dunno
+//  Created by c-mnd on 27.12.18.
+//  MIT License, see LICENSE
 
 #ifndef t27_h
 #define t27_h
@@ -51,17 +47,13 @@ static T27 t27_sum(const T27* a, const T27* b){
 }
 
 static T27 t27_roll(T27 a, const int n){
-    //a = t27_new(2,4);
-    const int m = n % 27;
-    //const int m = 26;
     T27 r;
-    r.p = ((a.p << m) | (a.p >> (27-m))) & 0x07ffffff;
-    r.n = ((a.n << m) | (a.n >> (27-m))) & 0x07ffffff;
+    r.p = ((a.p << n) | (a.p >> (27-n))) & 0x07ffffff;
+    r.n = ((a.n << n) | (a.n >> (27-n))) & 0x07ffffff;
     return r;
 }
 
-static uint8_t t27_get(const T27 * a, const int p){
-    const int pos = p % 27;
+static uint8_t t27_get(const T27 * a, const int pos){
     const uint32_t mask = 1 << pos;
     if (a->p & mask){
         return 1;
@@ -71,10 +63,9 @@ static uint8_t t27_get(const T27 * a, const int p){
     return 0;
 }
 
-static void t27_set(T27 * a, const int p, const uint8_t val){
+static void t27_set(T27 * a, const int pos, const uint8_t val){
     if (val > 2)
         return;
-    const int pos = p % 27;
     const uint32_t mask = 1 <<pos;
     const uint32_t unmask = ~mask;
     a->p = a->p & unmask;
