@@ -1,3 +1,10 @@
+update 2019-03-04
+
+added a branch "streaming", which picks up improvement ideas by shufps.
+If you want to see ongoing dev, go there.
+
+_______________________________
+
 # fTroika
 
 based on the original implementation, but with differently organized data.
